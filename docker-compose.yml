@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: kinoteatr
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 114860
+    ports:
+      - 5432:5432
