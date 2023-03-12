@@ -42,9 +42,9 @@ public class CinemaController {
 
     }
     @PutMapping("/cinema/{id}")
-    public Cinema updateMovie(@PathVariable Long id, @RequestBody CinemaRequestDTO user) {
+    public Cinema updateMovie(@PathVariable Long id, @RequestBody CinemaRequestDTO cinemaRequestDTO) {
 
-        return cinemaServiceImpl.updateMovie(id, user);
+        return cinemaServiceImpl.updateMovie(id, cinemaRequestDTO);
 
     }
 }
