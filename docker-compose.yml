@@ -2,10 +2,10 @@ version: "3"
 
 services:
   postgres:
-    image: postgres
+    image: postgres-1
     environment:
-      POSTGRES_DB: kinoteatr
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 114860
+      POSTGRES_DB: "kinoteatr"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "114860"
     ports:
-      - 5432:5432
+      - "5432:5432"

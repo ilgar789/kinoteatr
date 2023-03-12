@@ -6,19 +6,23 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "session",schema = "public")
 public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "s_id", nullable = false)
-    private Long id;
+    @Column(name = "session_id", nullable = false)
+    private Long sessionId;
 
-    @Column(name = "sens",nullable = false)
+    @Column(name = "session_date",nullable = false)
     private Date date;
+
+    @ManyToOne
+    @JoinColumn(name="movie_id")
+    private Cinema cinema;
+
 
 }

@@ -6,15 +6,17 @@ import com.cinema.kinoteatr.model.Cinema;
 import com.cinema.kinoteatr.service.cinema.CinemaServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@Controller
 @RestController
 @RequiredArgsConstructor
 public class CinemaController {
-    private final CinemaServiceImpl cinemaServiceImpl;
+    private final   CinemaServiceImpl cinemaServiceImpl;
 
     @GetMapping("/cinemas")
     public List<Cinema>getCinemas(){
@@ -31,6 +33,18 @@ public class CinemaController {
     public ResponseEntity<Boolean> createUser(@RequestBody CinemaRequestDTO cinemaRequestDTO)
             throws CinemaException {
         return ResponseEntity.ok(cinemaServiceImpl.createCinema(cinemaRequestDTO));
+
+    }
+    @DeleteMapping("/cinema/delete/{id}")
+    public boolean deleteMovie(@PathVariable("id") Long id)
+            throws CinemaException {
+        return cinemaServiceImpl.deleteMovie(id);
+
+    }
+    @PutMapping("/cinema/{id}")
+    public Cinema updateMovie(@PathVariable Long id, @RequestBody CinemaRequestDTO user) {
+
+        return cinemaServiceImpl.updateMovie(id, user);
 
     }
 }

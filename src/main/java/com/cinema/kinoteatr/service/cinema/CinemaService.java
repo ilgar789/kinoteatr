@@ -16,4 +16,7 @@ public interface CinemaService {
      boolean createCinema(CinemaRequestDTO cinema) throws CinemaException;
 
 
+     boolean deleteMovie(Long id) throws CinemaException;
+
+     Cinema updateMovie(Long id, CinemaRequestDTO cinemaRequestDTO);
 }

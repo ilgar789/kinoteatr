@@ -32,10 +32,13 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public boolean createCinema(CinemaRequestDTO cinema) throws CinemaException {
-        if (cinemaRepository.existsCinemaById(Long.valueOf(cinema.getMovie()))) {
-            throw new CinemaException("This cinema is not available");
-        } else {
+        if (cinemaRepository.existsCinemaById(cinema.getId())) {
+            throw new CinemaException("This movie is not available");
+        }else if(cinemaRepository.existsCinemaByMovie(cinema.getMovie())){
+            throw new CinemaException("This movie is not available");
+        }else {
             Cinema cinema1 = new Cinema();
+            cinema1.setId(cinema.getId());
             cinema1.setMovie(cinema.getMovie());
 
             cinemaRepository.save(cinema1);
@@ -45,6 +48,25 @@ public class CinemaServiceImpl implements CinemaService {
 
     }
 
+    @Override
+    public boolean deleteMovie(Long id) throws CinemaException {
+        Optional<Cinema> user = cinemaRepository.findById(id);
+        if (user.isPresent()) {
+            user.ifPresent(cinemaRepository::delete);
+            return true;
+        } else {
+            throw new CinemaException("This user doesn't exist");
+        }
+    }
+
+    @Override
+    public Cinema updateMovie(Long id, CinemaRequestDTO cinemaRequestDTO) {
+        Cinema cinema = cinemaRepository.findById(id).get();
+        cinema.setId(cinemaRequestDTO.getId());
+        cinema.setMovie(cinemaRequestDTO.getMovie());
+
+        return cinemaRepository.save(cinema);
+    }
 
 
 }
