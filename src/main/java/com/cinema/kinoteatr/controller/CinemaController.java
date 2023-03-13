@@ -41,8 +41,8 @@ public class CinemaController {
         return cinemaServiceImpl.deleteMovie(id);
 
     }
-    @PutMapping("/cinema/{id}")
-    public Cinema updateMovie(@PathVariable Long id, @RequestBody CinemaRequestDTO cinemaRequestDTO) {
+    @PutMapping("/cinema/update/{id}")
+    public Cinema updateMovie(@PathVariable("id") Long id, @RequestBody CinemaRequestDTO cinemaRequestDTO) {
 
         return cinemaServiceImpl.updateMovie(id, cinemaRequestDTO);
 

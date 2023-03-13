@@ -21,7 +21,7 @@ public class SessionController {
 
 
     @PostMapping("/movie/{id}/session")
-    public ResponseEntity<Boolean> createCard(@PathVariable("id") Long id)   {
+    public ResponseEntity<Boolean> createSession(@PathVariable("id") Long id)   {
         return ResponseEntity.ok(sessionService.createSession(id));
 
     }

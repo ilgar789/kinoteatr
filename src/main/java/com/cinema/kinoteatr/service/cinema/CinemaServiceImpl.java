@@ -50,12 +50,12 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public boolean deleteMovie(Long id) throws CinemaException {
-        Optional<Cinema> user = cinemaRepository.findById(id);
-        if (user.isPresent()) {
-            user.ifPresent(cinemaRepository::delete);
+        Optional<Cinema> cinema = cinemaRepository.findById(id);
+        if (cinema.isPresent()) {
+            cinemaRepository.deleteById(id);
             return true;
         } else {
-            throw new CinemaException("This user doesn't exist");
+            throw new CinemaException("This movie doesn't exist");
         }
     }
 

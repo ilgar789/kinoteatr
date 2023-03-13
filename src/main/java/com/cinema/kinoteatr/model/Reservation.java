@@ -26,6 +26,8 @@ public class Reservation {
     @Column(name = "place")
     int place;
 
-
+    @ManyToOne
+    @JoinColumn(name="session_id")
+    private Session session;
 
 }
