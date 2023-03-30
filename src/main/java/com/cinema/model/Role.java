@@ -1,21 +1,25 @@
 package com.cinema.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "t_role")
+@Data
+@Table(name = "t_role",schema = "public")
 public class Role implements GrantedAuthority {
     @Id
+    @Column(name = "id")
     private Long id ;
+    @Column(name = "name")
     private String name ;
     @Transient
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
-    public Role() {
-    }
 
     public Role(Long id) {
         this.id = id;
@@ -24,6 +28,10 @@ public class Role implements GrantedAuthority {
     public Role(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Role() {
+
     }
 
     public Long getId() {

@@ -1,5 +1,6 @@
 package com.cinema.service.user;
 
+
 import com.cinema.model.Role;
 import com.cinema.model.User;
 import com.cinema.repository.RoleRepository;

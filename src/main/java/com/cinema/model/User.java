@@ -1,5 +1,8 @@
 package com.cinema.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,13 +12,19 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Table(name = "t_user")
+@Data
+@Table(name = "t_user",schema = "public")
 public class User implements UserDetails {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "username")
     @Size(min=2, message = "Не меньше 5 знаков")
     private String username;
+
+    @Column(name = "password")
     @Size(min=2, message = "Не меньше 5 знаков")
     private String password;
     @Transient
