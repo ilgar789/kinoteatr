@@ -8,8 +8,8 @@ import com.cinema.service.cinema.CinemaServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -18,11 +18,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CinemaController {
     private final CinemaServiceImpl cinemaServiceImpl;
-
-    @GetMapping("/cinemas")
-    public List<Cinema>getCinemas(){
-        return cinemaServiceImpl.getCinemas();
-    }
 
     @GetMapping("/cinema/{id}")
     public Optional<Cinema> getCardById(@PathVariable(value = "id") Long id) throws CinemaException {
@@ -48,4 +43,12 @@ public class CinemaController {
         return cinemaServiceImpl.updateMovie(id, cinemaRequestDTO);
 
     }
+
+    @GetMapping("/cinemas")
+    public Model cinemaList(Model model) {
+
+       return model.addAttribute("getCinemas", cinemaServiceImpl.getCinemas());
+
+    }
+
 }

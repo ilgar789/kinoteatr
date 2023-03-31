@@ -1,7 +1,6 @@
 package com.cinema.service.reservation;
 
 
-
 import com.cinema.dto.ReservationRequestDTO;
 import com.cinema.model.Reservation;
 import com.cinema.exception.ReservationException;
@@ -13,7 +12,7 @@ public interface ReservationService {
 
     List<Reservation> getReservations();
 
-    boolean createReservation(Long id , ReservationRequestDTO reservationRequestDTO) throws ReservationException;
+    boolean createReservation(Long id, ReservationRequestDTO reservationRequestDTO) throws ReservationException;
 
     Optional<Reservation> getReservationById(Long id) throws ReservationException;
 }

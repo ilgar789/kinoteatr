@@ -13,9 +13,9 @@ import javax.persistence.*;
 @Table(name = "reservation",schema = "public")
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_id", nullable = false)
-    private Long reservationId;
+    private Long id;
 
     @Column(name = "hall")
     private int hall;
@@ -29,5 +29,10 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name="session_id")
     private Session session;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
 }

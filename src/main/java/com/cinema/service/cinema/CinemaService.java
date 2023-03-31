@@ -1,7 +1,6 @@
 package com.cinema.service.cinema;
 
 
-
 import com.cinema.dto.CinemaRequestDTO;
 import com.cinema.model.Cinema;
 import com.cinema.exception.CinemaException;
@@ -11,14 +10,13 @@ import java.util.Optional;
 
 public interface CinemaService {
 
-     List<Cinema> getCinemas();
+    List<Cinema> getCinemas();
 
-     Optional<Cinema> getCinemaById(Long id) throws CinemaException;
+    Optional<Cinema> getCinemaById(Long id) throws CinemaException;
 
-     boolean createCinema(CinemaRequestDTO cinema) throws CinemaException;
+    boolean createCinema(CinemaRequestDTO cinema) throws CinemaException;
 
+    boolean deleteMovie(Long id) throws CinemaException;
 
-     boolean deleteMovie(Long id) throws CinemaException;
-
-     Cinema updateMovie(Long id, CinemaRequestDTO cinemaRequestDTO);
+    Cinema updateMovie(Long id, CinemaRequestDTO cinemaRequestDTO);
 }

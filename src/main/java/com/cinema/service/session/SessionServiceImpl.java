@@ -15,17 +15,18 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SessionServiceImpl implements SessionService{
+public class SessionServiceImpl implements SessionService {
 
     private final SessionRepository sessionRepository;
     private final CinemaRepository cinemaRepository;
+
     @Override
     public List<Session> getSessions() {
         return sessionRepository.findAll();
     }
 
     @Override
-    public boolean createSession(Long movie_Id)  {
+    public boolean createSession(Long movie_Id) {
         Cinema cinema = cinemaRepository.findById(movie_Id).get();
         Session session = new Session();
         session.setDate(createSessionDate());
@@ -34,20 +35,20 @@ public class SessionServiceImpl implements SessionService{
         return true;
     }
 
-    private Date createSessionDate()  {
-        Date date=new Date();
+    private Date createSessionDate() {
+
+        Date date = new Date();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());
-
-        calendar.set(Calendar.HOUR,date.getHours()+1);
+        calendar.set(Calendar.HOUR, date.getHours() + 1);
         calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND,0);
-        calendar.set(Calendar.MILLISECOND,0);
-        calendar.set(Calendar.DAY_OF_MONTH, date.getDay()+4);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.DAY_OF_MONTH, date.getDay() + 4);
 
         return calendar.getTime();
     }
 
-    }
+}
 
 

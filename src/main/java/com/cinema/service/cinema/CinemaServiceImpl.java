@@ -17,8 +17,8 @@ public class CinemaServiceImpl implements CinemaService {
     private final CinemaRepository cinemaRepository;
 
     @Override
-    public List<Cinema> getCinemas(){
-        List<Cinema>list=cinemaRepository.findAll();
+    public List<Cinema> getCinemas() {
+        List<Cinema> list = cinemaRepository.findAll();
         return list;
     }
 
@@ -36,15 +36,13 @@ public class CinemaServiceImpl implements CinemaService {
     public boolean createCinema(CinemaRequestDTO cinema) throws CinemaException {
         if (cinemaRepository.existsCinemaById(cinema.getId())) {
             throw new CinemaException("This movie is not available");
-        }else if(cinemaRepository.existsCinemaByMovie(cinema.getMovie())){
+        } else if (cinemaRepository.existsCinemaByMovie(cinema.getMovie())) {
             throw new CinemaException("This movie is not available");
-        }else {
+        } else {
             Cinema cinema1 = new Cinema();
             cinema1.setId(cinema.getId());
             cinema1.setMovie(cinema.getMovie());
-
             cinemaRepository.save(cinema1);
-
         }
         return true;
 
@@ -66,7 +64,6 @@ public class CinemaServiceImpl implements CinemaService {
         Cinema cinema = cinemaRepository.findById(id).get();
         cinema.setId(cinemaRequestDTO.getId());
         cinema.setMovie(cinemaRequestDTO.getMovie());
-
         return cinemaRepository.save(cinema);
     }
 

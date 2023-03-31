@@ -1,7 +1,6 @@
 package com.cinema.controller;
 
 import com.cinema.service.user.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +11,7 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
 
     @GetMapping("/admin")
     public String userList( Model model) {
