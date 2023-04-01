@@ -1,7 +1,7 @@
 package com.cinema.controller;
 
 import com.cinema.model.User;
-import com.cinema.service.user.UserService;
+import com.cinema.service.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,7 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @GetMapping("/registration")
     public String registration(Model model) {

@@ -6,6 +6,7 @@ import com.cinema.model.Cinema;
 import com.cinema.exception.CinemaException;
 import com.cinema.repository.CinemaRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,10 +40,8 @@ public class CinemaServiceImpl implements CinemaService {
         } else if (cinemaRepository.existsCinemaByMovie(cinema.getMovie())) {
             throw new CinemaException("This movie is not available");
         } else {
-            Cinema cinema1 = new Cinema();
-            cinema1.setId(cinema.getId());
-            cinema1.setMovie(cinema.getMovie());
-            cinemaRepository.save(cinema1);
+            ModelMapper modelMapper=new ModelMapper();
+            cinemaRepository.save(modelMapper.map(cinema,Cinema.class));
         }
         return true;
 

@@ -1,6 +1,6 @@
 package com.cinema.config;
 
-import com.cinema.service.user.UserService;
+import com.cinema.service.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    UserService userService;
+    UserServiceImpl userService;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**","/reservations","cinema/**","/movie/session/reservation").hasRole("ADMIN")
                 .antMatchers("/news","/cinema/{id}", "/reservation").hasRole("USER")
                 //Доступ разрешен всем пользователей
-                .antMatchers("/","/sessions","/movie/session/reservation/**","/cinemas", "/resources/**").permitAll()
+                .antMatchers("/","/movie/session/{idS}/reservation/add/{idU}","/sessions","/movie/session/[idS}/reservation/add/{id}","/cinemas", "/resources/**").permitAll()
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()

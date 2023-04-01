@@ -5,9 +5,13 @@ import com.cinema.dto.ReservationRequestDTO;
 import com.cinema.model.Reservation;
 import com.cinema.model.Session;
 import com.cinema.exception.ReservationException;
+import com.cinema.model.User;
 import com.cinema.repository.ReservationRepository;
 import com.cinema.repository.SessionRepository;
+import com.cinema.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -20,24 +24,26 @@ import java.util.Optional;
 public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
     private final SessionRepository sessionRepository;
+    private final UserRepository userRepository;
 
+    @Override
     public List<Reservation> getReservations() {
         return reservationRepository.findAll();
     }
 
-    @PersistenceContext
-    private EntityManager em;
 
     @Override
-    public boolean createReservation(Long id, ReservationRequestDTO reservationRequestDTO) throws ReservationException {
-        ReservationServiceImpl reservationService = new ReservationServiceImpl(reservationRepository, sessionRepository);
-        ReservationServiceImpl.generateHall(reservationRequestDTO.getHall());
-        ReservationServiceImpl.generateRowAndPlace(reservationRequestDTO.getRow(), reservationRequestDTO.getPlace());
-        reservationService.reservationExamination(id, reservationRequestDTO.getHall(), reservationRequestDTO.getRow(), reservationRequestDTO.getPlace());
+    public boolean createReservation(Long idS,Long idU, ReservationRequestDTO reservationRequestDTO) throws ReservationException {
+       ReservationServiceImpl reservationService=
+               new ReservationServiceImpl(reservationRepository, sessionRepository,userRepository);
+        reservationService.reservationExamination(idS, reservationRequestDTO.getHall(), reservationRequestDTO.getRow(), reservationRequestDTO.getPlace());
         Reservation reservation = new Reservation();
-        reservation.setHall(reservationRequestDTO.getHall());
-        reservation.setRow(reservationRequestDTO.getRow());
-        reservation.setPlace(reservationRequestDTO.getPlace());
+        ModelMapper modelMapper=new ModelMapper();
+        Session session=sessionRepository.findById(idS).get();
+        User user=userRepository.findById(idU).get();
+        reservation=modelMapper.map(reservationRequestDTO,Reservation.class);
+        reservation.setSession(session);
+        reservation.setUser(user);
         reservationRepository.save(reservation);
         return true;
     }
@@ -49,13 +55,6 @@ public class ReservationServiceImpl implements ReservationService {
             return Optional.of(reservation.orElseGet(Reservation::new));
         } else {
             throw new ReservationException("This reservation doesn't exist");
-        }
-    }
-
-    private static void generateHall(int hall) throws ReservationException {
-        if (hall > 0 && hall <= 3) {
-        } else {
-            throw new ReservationException("You have chosen the wrong hall");
         }
     }
 
@@ -71,16 +70,6 @@ public class ReservationServiceImpl implements ReservationService {
         }
     }
 
-    private static void generateRowAndPlace(int row, int place) throws ReservationException {
-        if (row > 0 && row <= 5) {
-            if (place > 0 && place <= 5) {
-            } else {
-                throw new ReservationException("You have chosen the wrong place ");
-            }
-        } else {
-            throw new ReservationException("You have chosen the wrong row");
-        }
-    }
 
 
 }

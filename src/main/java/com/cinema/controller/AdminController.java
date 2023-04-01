@@ -1,6 +1,6 @@
 package com.cinema.controller;
 
-import com.cinema.service.user.UserService;
+import com.cinema.service.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
 
     @GetMapping("/admin")
