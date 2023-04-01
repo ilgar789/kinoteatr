@@ -24,7 +24,7 @@ public class Reservation {
     private int row;
 
     @Column(name = "place")
-    int place;
+    private int place;
 
     @ManyToOne
     @JoinColumn(name="session_id")

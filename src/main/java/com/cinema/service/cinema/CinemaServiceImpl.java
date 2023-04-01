@@ -18,13 +18,13 @@ public class CinemaServiceImpl implements CinemaService {
     private final CinemaRepository cinemaRepository;
 
     @Override
-    public List<Cinema> getCinemas() {
+    public List<Cinema> getMovie() {
         List<Cinema> list = cinemaRepository.findAll();
         return list;
     }
 
     @Override
-    public Optional<Cinema> getCinemaById(Long id) throws CinemaException {
+    public Optional<Cinema> getMovieById(Long id) throws CinemaException {
         Optional<Cinema> cinema = cinemaRepository.findById(id);
         if (cinema.isPresent()) {
             return Optional.of(cinema.orElseGet(Cinema::new));
@@ -34,14 +34,14 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
     @Override
-    public boolean createCinema(CinemaRequestDTO cinema) throws CinemaException {
-        if (cinemaRepository.existsCinemaById(cinema.getId())) {
+    public boolean createCinema(CinemaRequestDTO cinemaDTO) throws CinemaException {
+        if (cinemaRepository.existsCinemaById(cinemaDTO.getId())) {
             throw new CinemaException("This movie is not available");
-        } else if (cinemaRepository.existsCinemaByMovie(cinema.getMovie())) {
+        } else if (cinemaRepository.existsCinemaByMovie(cinemaDTO.getMovie())) {
             throw new CinemaException("This movie is not available");
         } else {
             ModelMapper modelMapper=new ModelMapper();
-            cinemaRepository.save(modelMapper.map(cinema,Cinema.class));
+            cinemaRepository.save(modelMapper.map(cinemaDTO,Cinema.class));
         }
         return true;
 
@@ -49,20 +49,19 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public boolean deleteMovie(Long id) throws CinemaException {
-        Optional<Cinema> cinema = cinemaRepository.findById(id);
-        if (cinema.isPresent()) {
+        if (cinemaRepository.findById(id).isPresent()) {
             cinemaRepository.deleteById(id);
             return true;
-        } else {
-            throw new CinemaException("This movie doesn't exist");
+        }else {
+            throw  new CinemaException("This movie doesn't exist");
         }
     }
 
     @Override
-    public Cinema updateMovie(Long id, CinemaRequestDTO cinemaRequestDTO) {
+    public Cinema updateMovie(Long id, CinemaRequestDTO cinemaDTO) {
         Cinema cinema = cinemaRepository.findById(id).get();
-        cinema.setId(cinemaRequestDTO.getId());
-        cinema.setMovie(cinemaRequestDTO.getMovie());
+        cinema.setId(cinemaDTO.getId());
+        cinema.setMovie(cinemaDTO.getMovie());
         return cinemaRepository.save(cinema);
     }
 

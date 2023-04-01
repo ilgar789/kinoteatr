@@ -22,6 +22,7 @@
                 <td>${cinema.id}</td>
                 <td>${cinema.movie}</td>
             </tr>
+
         </c:forEach>
     </table>
     <a href="/">Главная</a>

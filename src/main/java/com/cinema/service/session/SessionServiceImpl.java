@@ -34,6 +34,14 @@ public class SessionServiceImpl implements SessionService {
         sessionRepository.save(session);
         return true;
     }
+    @Override
+    public boolean deleteSession(Long id) {
+        if (sessionRepository.findById(id).isPresent()) {
+            sessionRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 
     private Date createSessionDate() {
 

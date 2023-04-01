@@ -39,6 +39,9 @@
     </c:forEach>
   </table>
   <a href="/">Главная</a>
+  <a href="/admin/movie">Movies</a>
+  <a href="/admin/sessions">Sessions</a>
+  <a href="/admin/reservations">Reservations</a>
 </div>
 </body>
 </html>

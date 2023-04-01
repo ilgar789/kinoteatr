@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
 import java.util.Optional;
 
 @Controller
@@ -19,35 +19,44 @@ import java.util.Optional;
 public class CinemaController {
     private final CinemaServiceImpl cinemaServiceImpl;
 
-    @GetMapping("/cinema/{id}")
-    public Optional<Cinema> getCardById(@PathVariable(value = "id") Long id) throws CinemaException {
-
-        return cinemaServiceImpl.getCinemaById(id);
+    @GetMapping("/movie/{id}")
+    public Optional<Cinema> getCinemaById(@PathVariable(value = "id") Long id) throws CinemaException {
+        return cinemaServiceImpl.getMovieById(id);
     }
 
-    @PostMapping("/cinema/add")
-    public ResponseEntity<Boolean> createUser(@RequestBody CinemaRequestDTO cinemaRequestDTO)
+    @PostMapping("/movie/add")
+    public ResponseEntity<Boolean> createCinema(@RequestBody CinemaRequestDTO cinemaDTO)
             throws CinemaException {
-        return ResponseEntity.ok(cinemaServiceImpl.createCinema(cinemaRequestDTO));
+        return ResponseEntity.ok(cinemaServiceImpl.createCinema(cinemaDTO));
 
     }
-    @DeleteMapping("/cinema/delete/{id}")
-    public boolean deleteMovie(@PathVariable("id") Long id)
-            throws CinemaException {
-        return cinemaServiceImpl.deleteMovie(id);
-
-    }
-    @PutMapping("/cinema/update/{id}")
+    @PutMapping("/movie/update/{id}")
     public Cinema updateMovie(@PathVariable("id") Long id, @RequestBody CinemaRequestDTO cinemaRequestDTO) {
 
         return cinemaServiceImpl.updateMovie(id, cinemaRequestDTO);
 
     }
 
-    @GetMapping("/cinemas")
+    @GetMapping("/movies")
     public Model cinemaList(Model model) {
+       return model.addAttribute("getCinemas", cinemaServiceImpl.getMovie());
 
-       return model.addAttribute("getCinemas", cinemaServiceImpl.getCinemas());
+    }
+    @GetMapping("/admin/movie")
+    public Model cinemaListAdmin(Model model) {
+        return model.addAttribute("getCinemas", cinemaServiceImpl.getMovie());
+
+    }
+
+    @PostMapping("/admin/movie")
+    public String deleteMovie(@RequestParam(required = true, defaultValue = "" ) Long id,
+                              @RequestParam(required = true, defaultValue = "" ) String action,
+                              Model model)
+            throws CinemaException {
+        if (action.equals("delete")){
+            cinemaServiceImpl.deleteMovie(id);
+        }
+        return "redirect:/admin/movie";
 
     }
 

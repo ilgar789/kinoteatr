@@ -15,4 +15,6 @@ public interface ReservationService {
     boolean createReservation(Long idS,Long idU, ReservationRequestDTO reservationRequestDTO) throws ReservationException;
 
     Optional<Reservation> getReservationById(Long id) throws ReservationException;
+
+    boolean deleteReservation(Long id);
 }

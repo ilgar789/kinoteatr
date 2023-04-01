@@ -19,7 +19,7 @@
   <sec:authorize access="isAuthenticated()">
     <h4><a href="/logout">Go out</a></h4>
   </sec:authorize>
-  <h4><a href="/cinemas">Movies </a></h4>
+  <h4><a href="/movies">Movies </a></h4>
   <h4><a href="/sessions">Sessions </a></h4>
   <h4><a href="/reservations">Reservations </a></h4>
   <h4><a href="/admin">Admin</a></h4>

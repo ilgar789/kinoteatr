@@ -5,10 +5,8 @@ import com.cinema.service.session.SessionServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -24,8 +22,22 @@ public class SessionController {
     }
 
     @GetMapping("/sessions")
-    public Model cinemaList(Model model) {
+    public Model sessionsList(Model model) {
         return model.addAttribute("getSessions", sessionService.getSessions());
 
+    }
+    @GetMapping("/admin/sessions")
+    public Model sessionsListAdmin(Model model) {
+        return model.addAttribute("getSessions", sessionService.getSessions());
+
+    }
+    @PostMapping("/admin/sessions")
+    public String  deleteSessions(@RequestParam(required = true, defaultValue = "" ) Long id,
+                              @RequestParam(required = true, defaultValue = "" ) String action,
+                              Model model) {
+        if (action.equals("delete")){
+            sessionService.deleteSession(id);
+        }
+        return "redirect:/admin/sessions";
     }
 }

@@ -38,10 +38,20 @@
                 <td>${reservation.user.id}</td>
                 <td>${reservation.user.username}</td>
                 <td>${reservation.user.roles}</td>
+                <td>
+                    <form action="${pageContext.request.contextPath}/admin" method="post">
+                        <input type="hidden" name="id" value="${reservation.id}"/>
+                        <input type="hidden" name="action" value="delete"/>
+                        <button type="submit">Delete</button>
+                    </form>
+
+                </td>
+
             </tr>
         </c:forEach>
     </table>
     <a href="/">Главная</a>
+    <a href="/admin/sessions">Sessions</a>
 </div>
 
 </body>

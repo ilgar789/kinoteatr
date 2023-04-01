@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public interface CinemaService {
 
-    List<Cinema> getCinemas();
+    List<Cinema> getMovie();
 
-    Optional<Cinema> getCinemaById(Long id) throws CinemaException;
+    Optional<Cinema> getMovieById(Long id) throws CinemaException;
 
     boolean createCinema(CinemaRequestDTO cinema) throws CinemaException;
 

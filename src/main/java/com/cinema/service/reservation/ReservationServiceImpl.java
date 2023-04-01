@@ -11,11 +11,8 @@ import com.cinema.repository.SessionRepository;
 import com.cinema.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +55,15 @@ public class ReservationServiceImpl implements ReservationService {
         }
     }
 
+    @Override
+    public boolean deleteReservation(Long id) {
+        if (reservationRepository.findById(id).isPresent()) {
+            reservationRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
     private void reservationExamination(Long id, int hall, int row, int place)
             throws ReservationException {
 
@@ -69,7 +75,4 @@ public class ReservationServiceImpl implements ReservationService {
             }
         }
     }
-
-
-
 }

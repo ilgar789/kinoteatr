@@ -35,9 +35,25 @@ public class ReservationController {
     }
 
     @GetMapping("/reservations")
-    public Model cinemaList(Model model) {
+    public Model reservationsList(Model model) {
 
         return model.addAttribute("getReservations", reservationService.getReservations());
 
+    }
+
+    @GetMapping("/admin/reservations")
+    public Model reservationsListAdmin(Model model) {
+
+        return model.addAttribute("getReservations", reservationService.getReservations());
+
+    }
+    @PostMapping("/admin/reservations")
+    public String  deleteReservations(@RequestParam(required = true, defaultValue = "" ) Long id,
+                              @RequestParam(required = true, defaultValue = "" ) String action,
+                              Model model) {
+        if (action.equals("delete")){
+            reservationService.deleteReservation(id);
+        }
+        return "redirect:/admin/reservations";
     }
 }
