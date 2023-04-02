@@ -15,14 +15,13 @@
         <thead>
         <th>ID</th>
         <th>Movie</th>
-
         </thead>
         <c:forEach items="${getCinemas}" var="cinema">
             <tr>
                 <td>${cinema.id}</td>
                 <td>${cinema.movie}</td>
-            </tr>
 
+            </tr>
         </c:forEach>
     </table>
     <a href="/">Главная</a>

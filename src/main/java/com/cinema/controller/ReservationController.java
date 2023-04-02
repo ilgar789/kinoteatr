@@ -34,12 +34,6 @@ public class ReservationController {
         return reservationService.getReservationById(id);
     }
 
-    @GetMapping("/reservations")
-    public Model reservationsList(Model model) {
-
-        return model.addAttribute("getReservations", reservationService.getReservations());
-
-    }
 
     @GetMapping("/admin/reservations")
     public Model reservationsListAdmin(Model model) {

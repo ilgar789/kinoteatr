@@ -37,7 +37,10 @@
                 <td>${reservation.session.cinema.movie}</td>
                 <td>${reservation.user.id}</td>
                 <td>${reservation.user.username}</td>
-                <td>${reservation.user.roles}</td>
+
+                <td>
+                    <c:forEach items="${reservation.user.roles}" var="role">${role.name}; </c:forEach>
+                </td>
                 <td>
                     <form action="${pageContext.request.contextPath}/admin" method="post">
                         <input type="hidden" name="id" value="${reservation.id}"/>
