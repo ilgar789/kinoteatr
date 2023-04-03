@@ -1,5 +1,6 @@
 package com.cinema.controller;
 
+import com.cinema.exceptions.exception.SessionException;
 import com.cinema.model.Session;
 import com.cinema.service.session.SessionServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,7 +18,7 @@ public class SessionController {
     private final SessionServiceImpl sessionService;
 
     @PostMapping("/movie/{id}/session")
-    public ResponseEntity<Boolean> createSession(@PathVariable("id") Long id)   {
+    public ResponseEntity<Boolean> createSession(@PathVariable("id") Long id) throws SessionException {
         return ResponseEntity.ok(sessionService.createSession(id));
 
     }

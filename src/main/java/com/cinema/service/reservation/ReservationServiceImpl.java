@@ -4,13 +4,15 @@ package com.cinema.service.reservation;
 import com.cinema.dto.ReservationRequestDTO;
 import com.cinema.model.Reservation;
 import com.cinema.model.Session;
-import com.cinema.exception.ReservationException;
+import com.cinema.exceptions.exception.ReservationException;
 import com.cinema.model.User;
 import com.cinema.repository.ReservationRepository;
 import com.cinema.repository.SessionRepository;
 import com.cinema.repository.UserRepository;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,7 @@ public class ReservationServiceImpl implements ReservationService {
     private final SessionRepository sessionRepository;
     private final UserRepository userRepository;
 
+
     @Override
     public List<Reservation> getReservations() {
         return reservationRepository.findAll();
@@ -30,17 +33,20 @@ public class ReservationServiceImpl implements ReservationService {
 
 
     @Override
-    public boolean createReservation(Long idS,Long idU, ReservationRequestDTO reservationRequestDTO) throws ReservationException {
-       ReservationServiceImpl reservationService=
-               new ReservationServiceImpl(reservationRepository, sessionRepository,userRepository);
-        reservationService.reservationExamination(idS, reservationRequestDTO.getHall(), reservationRequestDTO.getRow(), reservationRequestDTO.getPlace());
-        Reservation reservation = new Reservation();
-        ModelMapper modelMapper=new ModelMapper();
-        Session session=sessionRepository.findById(idS).get();
-        User user=userRepository.findById(idU).get();
-        reservation=modelMapper.map(reservationRequestDTO,Reservation.class);
-        reservation.setSession(session);
-        reservation.setUser(user);
+    public boolean createReservation(Long idS, Long idU, ReservationRequestDTO reservationDTO) throws ReservationException {
+
+        ReservationServiceImpl reservationService = new ReservationServiceImpl(
+                reservationRepository, sessionRepository, userRepository);
+        reservationService.reservationExamination(
+                idS, idU,
+                reservationDTO.getHall(),
+                reservationDTO.getRow(),
+                reservationDTO.getPlace());
+        Reservation reservation;
+        ModelMapper modelMapper = new ModelMapper();
+        reservation = modelMapper.map(reservationDTO, Reservation.class);
+        reservation.setSession(sessionRepository.findById(idS).get());
+        reservation.setUser(userRepository.findById(idU).get());
         reservationRepository.save(reservation);
         return true;
     }
@@ -64,14 +70,20 @@ public class ReservationServiceImpl implements ReservationService {
         return false;
     }
 
-    private void reservationExamination(Long id, int hall, int row, int place)
+    private void reservationExamination(Long idS, Long idU, int hall, int row, int place)
             throws ReservationException {
 
-        Session session = sessionRepository.findById(id).get();
         List<Reservation> reservationList = reservationRepository.findAll();
-        for (Reservation num : reservationList) {
-            if (id == session.getId() && num.getHall() == hall && num.getRow() == row && num.getPlace() == place) {
-                throw new ReservationException("The seat you have chosen is occupied");
+
+        if (sessionRepository.getSessionsById(idS) == null) {
+            throw new ReservationException("Session with this id doesnt find");
+        } else if (null == userRepository.findAllById(idU)) {
+            throw new ReservationException("User with this id doesnt find");
+        } else {
+            for (Reservation num : reservationList) {
+                if (num.getHall() == hall && num.getRow() == row && num.getPlace() == place) {
+                    throw new ReservationException("The seat you have chosen is occupied");
+                }
             }
         }
     }

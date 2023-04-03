@@ -3,10 +3,11 @@ package com.cinema.service.cinema;
 
 import com.cinema.dto.CinemaRequestDTO;
 import com.cinema.model.Cinema;
-import com.cinema.exception.CinemaException;
+import com.cinema.exceptions.exception.CinemaException;
 import com.cinema.repository.CinemaRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,27 +25,20 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
     @Override
-    public Optional<Cinema> getMovieById(Long id) throws CinemaException {
-        Optional<Cinema> cinema = cinemaRepository.findById(id);
-        if (cinema.isPresent()) {
-            return Optional.of(cinema.orElseGet(Cinema::new));
+    public Cinema getMovieById(Long id) throws CinemaException {
+        Cinema cinema = cinemaRepository.findCinemaById(id);
+        if (cinema != null) {
+            return cinema;
         } else {
-            throw new CinemaException("This cinema doesn't exist");
+            throw new CinemaException("User not found with this id ");
         }
     }
 
-    @Override
-    public boolean createCinema(CinemaRequestDTO cinemaDTO) throws CinemaException {
-        if (cinemaRepository.existsCinemaById(cinemaDTO.getId())) {
-            throw new CinemaException("This movie is not available");
-        } else if (cinemaRepository.existsCinemaByMovie(cinemaDTO.getMovie())) {
-            throw new CinemaException("This movie is not available");
-        } else {
-            ModelMapper modelMapper=new ModelMapper();
-            cinemaRepository.save(modelMapper.map(cinemaDTO,Cinema.class));
-        }
-        return true;
 
+    @Override
+    public Cinema createMovie(CinemaRequestDTO cinemaDTO) {
+        ModelMapper modelMapper = new ModelMapper();
+        return cinemaRepository.save(modelMapper.map(cinemaDTO, Cinema.class));
     }
 
     @Override
@@ -52,8 +46,8 @@ public class CinemaServiceImpl implements CinemaService {
         if (cinemaRepository.findById(id).isPresent()) {
             cinemaRepository.deleteById(id);
             return true;
-        }else {
-            throw  new CinemaException("This movie doesn't exist");
+        } else {
+            throw new CinemaException("This movie doesn't exist");
         }
     }
 

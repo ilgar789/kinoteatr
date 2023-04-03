@@ -1,4 +1,4 @@
-package com.cinema.exception;
+package com.cinema.exceptions.exception;
 
 public class ReservationException extends Exception{
     public ReservationException(String message) {

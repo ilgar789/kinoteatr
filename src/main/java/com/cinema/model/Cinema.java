@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Data
@@ -23,6 +26,7 @@ public class Cinema {
 
     @Column(name="movie_name")
     private String movie;
+
 
 
 }

@@ -14,7 +14,7 @@ public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "session_id", nullable = false)
-    private Long Id;
+    private Long id;
 
     @Column(name = "session_date",nullable = false)
     private Date date;

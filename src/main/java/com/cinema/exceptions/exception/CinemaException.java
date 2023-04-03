@@ -1,4 +1,4 @@
-package com.cinema.exception;
+package com.cinema.exceptions.exception;
 
 public class CinemaException extends Exception{
     public CinemaException(String message) {

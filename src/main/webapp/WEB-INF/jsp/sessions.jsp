@@ -22,7 +22,7 @@
             <tr>
                 <td>${session.id}</td>
                 <td>${session.date}</td>
-                <td>${session.cinema}</td>
+                <td>${session.cinema.movie}</td>
             </tr>
         </c:forEach>
     </table>

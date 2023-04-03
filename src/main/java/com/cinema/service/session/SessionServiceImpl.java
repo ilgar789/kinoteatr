@@ -1,7 +1,8 @@
 package com.cinema.service.session;
 
 
-import com.cinema.model.Cinema;
+import com.cinema.exceptions.exception.CinemaException;
+import com.cinema.exceptions.exception.SessionException;
 import com.cinema.model.Session;
 import com.cinema.repository.CinemaRepository;
 import com.cinema.repository.SessionRepository;
@@ -16,23 +17,33 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SessionServiceImpl implements SessionService {
-
     private final SessionRepository sessionRepository;
     private final CinemaRepository cinemaRepository;
-
     @Override
     public List<Session> getSessions() {
         return sessionRepository.findAll();
     }
 
     @Override
-    public boolean createSession(Long movie_Id) {
-        Cinema cinema = cinemaRepository.findById(movie_Id).get();
-        Session session = new Session();
-        session.setDate(createSessionDate());
-        session.setCinema(cinema);
-        sessionRepository.save(session);
-        return true;
+    public boolean createSession(Long id) throws SessionException {
+        if (null == cinemaRepository.findAllById(id)) {
+            throw new SessionException("Movie with this id doesnt exists");
+        } else {
+            Session session = new Session();
+            session.setDate(createSessionDate());
+            session.setCinema(cinemaRepository.findById(id).get());
+            sessionRepository.save(session);
+            return true;
+        }
+    }
+    @Override
+    public Session getSessionById(Long id) throws CinemaException {
+        Session session=sessionRepository.getSessionsById(id);
+        if (session != null) {
+            return session;
+        } else {
+            throw new CinemaException("User not found with this id ");
+        }
     }
     @Override
     public boolean deleteSession(Long id) {
