@@ -25,7 +25,6 @@ public class ReservationServiceImpl implements ReservationService {
     private final SessionRepository sessionRepository;
     private final UserRepository userRepository;
 
-
     @Override
     public List<Reservation> getReservations() {
         return reservationRepository.findAll();
@@ -33,22 +32,22 @@ public class ReservationServiceImpl implements ReservationService {
 
 
     @Override
-    public boolean createReservation(Long idS, Long idU, ReservationRequestDTO reservationDTO) throws ReservationException {
+    public Reservation createReservation(Long idSession, Long idUser, ReservationRequestDTO reservationDTO) throws ReservationException {
 
         ReservationServiceImpl reservationService = new ReservationServiceImpl(
                 reservationRepository, sessionRepository, userRepository);
         reservationService.reservationExamination(
-                idS, idU,
+                idSession, idUser,
                 reservationDTO.getHall(),
                 reservationDTO.getRow(),
                 reservationDTO.getPlace());
         Reservation reservation;
         ModelMapper modelMapper = new ModelMapper();
         reservation = modelMapper.map(reservationDTO, Reservation.class);
-        reservation.setSession(sessionRepository.findById(idS).get());
-        reservation.setUser(userRepository.findById(idU).get());
+        reservation.setSession(sessionRepository.findById(idSession).get());
+        reservation.setUser(userRepository.findById(idUser).get());
         reservationRepository.save(reservation);
-        return true;
+        return reservationRepository.save(reservation);
     }
 
     @Override
@@ -70,14 +69,14 @@ public class ReservationServiceImpl implements ReservationService {
         return false;
     }
 
-    private void reservationExamination(Long idS, Long idU, int hall, int row, int place)
+    private void reservationExamination(Long idSession, Long idUser, int hall, int row, int place)
             throws ReservationException {
 
         List<Reservation> reservationList = reservationRepository.findAll();
 
-        if (sessionRepository.getSessionsById(idS) == null) {
+        if (sessionRepository.getSessionsById(idSession) == null) {
             throw new ReservationException("Session with this id doesnt find");
-        } else if (null == userRepository.findAllById(idU)) {
+        } else if (null == userRepository.findAllById(idUser)) {
             throw new ReservationException("User with this id doesnt find");
         } else {
             for (Reservation num : reservationList) {

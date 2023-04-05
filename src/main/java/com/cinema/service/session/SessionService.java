@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SessionService {
     List<Session> getSessions();
-    boolean createSession(Long movie_Id) throws SessionException;
+    Session createSession(Long movie_Id) throws SessionException;
 
     Session getSessionById(Long id) throws CinemaException;
 

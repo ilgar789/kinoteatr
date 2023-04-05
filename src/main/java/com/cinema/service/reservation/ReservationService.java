@@ -12,7 +12,7 @@ public interface ReservationService {
 
     List<Reservation> getReservations();
 
-    boolean createReservation(Long idS,Long idU, ReservationRequestDTO reservationRequestDTO) throws ReservationException;
+    Reservation createReservation(Long idS,Long idU, ReservationRequestDTO reservationRequestDTO) throws ReservationException;
 
     Optional<Reservation> getReservationById(Long id) throws ReservationException;
 

@@ -2,10 +2,7 @@ package com.cinema.model;
 
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -15,6 +12,7 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Data
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "cinema",schema = "public")

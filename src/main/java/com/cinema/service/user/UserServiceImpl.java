@@ -5,6 +5,7 @@ import com.cinema.model.Role;
 import com.cinema.model.User;
 import com.cinema.repository.RoleRepository;
 import com.cinema.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,14 +19,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserDetailsService ,UserService{
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService{
     @PersistenceContext
-    private EntityManager em;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    RoleRepository roleRepository;
-    @Autowired
+    private final EntityManager em;
+    private final UserRepository userRepository;
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -35,12 +33,6 @@ public class UserServiceImpl implements UserDetailsService ,UserService{
             throw new UsernameNotFoundException("User not found");
         }
         return user;
-    }
-
-    @Override
-    public User findUserById(Long userId) {
-        Optional<User> userFromDb = userRepository.findById(userId);
-        return userFromDb.orElse(new User());
     }
 
     @Override

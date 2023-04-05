@@ -25,7 +25,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public boolean createSession(Long id) throws SessionException {
+    public Session createSession(Long id) throws SessionException {
         if (null == cinemaRepository.findAllById(id)) {
             throw new SessionException("Movie with this id doesnt exists");
         } else {
@@ -33,16 +33,15 @@ public class SessionServiceImpl implements SessionService {
             session.setDate(createSessionDate());
             session.setCinema(cinemaRepository.findById(id).get());
             sessionRepository.save(session);
-            return true;
+            return sessionRepository.save(session);
         }
     }
     @Override
     public Session getSessionById(Long id) throws CinemaException {
-        Session session=sessionRepository.getSessionsById(id);
-        if (session != null) {
-            return session;
+        if (sessionRepository.getSessionsById(id).getId() != null) {
+            return sessionRepository.getSessionsById(id);
         } else {
-            throw new CinemaException("User not found with this id ");
+            throw new CinemaException("Session not found with this id ");
         }
     }
     @Override

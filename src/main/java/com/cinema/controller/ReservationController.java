@@ -4,7 +4,7 @@ package com.cinema.controller;
 import com.cinema.dto.ReservationRequestDTO;
 import com.cinema.model.Reservation;
 import com.cinema.exceptions.exception.ReservationException;
-import com.cinema.service.reservation.ReservationServiceImpl;
+import com.cinema.service.reservation.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +16,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ReservationController {
 
-    private final ReservationServiceImpl reservationService;
+    private final ReservationService reservationService;
 
-    @PostMapping("/movie/session/{idS}/reservation/add/{idU}")
-    public boolean createReservation(@PathVariable(value = "idS") Long idS,
-                                     @PathVariable(value = "idU") Long idU,
+    @PostMapping("/movie/session/{idSession}/reservation/add/{idUser}")
+    public Reservation createReservation(@PathVariable(value = "idSession") Long idS,
+                                     @PathVariable(value = "idUser") Long idU,
                                      @RequestBody @Valid ReservationRequestDTO reservationRequestDTO)
             throws ReservationException {
 

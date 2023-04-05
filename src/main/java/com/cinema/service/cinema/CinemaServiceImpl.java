@@ -7,11 +7,9 @@ import com.cinema.exceptions.exception.CinemaException;
 import com.cinema.repository.CinemaRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +28,7 @@ public class CinemaServiceImpl implements CinemaService {
         if (cinema != null) {
             return cinema;
         } else {
-            throw new CinemaException("User not found with this id ");
+            throw new CinemaException("Movie not found with this id ");
         }
     }
 
@@ -54,7 +52,6 @@ public class CinemaServiceImpl implements CinemaService {
     @Override
     public Cinema updateMovie(Long id, CinemaRequestDTO cinemaDTO) {
         Cinema cinema = cinemaRepository.findById(id).get();
-        cinema.setId(cinemaDTO.getId());
         cinema.setMovie(cinemaDTO.getMovie());
         return cinemaRepository.save(cinema);
     }

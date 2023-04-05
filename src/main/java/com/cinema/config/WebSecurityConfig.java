@@ -1,6 +1,7 @@
 package com.cinema.config;
 
-import com.cinema.service.user.UserServiceImpl;
+import com.cinema.service.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    UserServiceImpl userService;
+    private final UserService userService;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

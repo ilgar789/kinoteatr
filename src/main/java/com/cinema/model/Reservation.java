@@ -1,8 +1,6 @@
 package com.cinema.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,6 +8,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Getter
+@Setter
 @Table(name = "reservation",schema = "public")
 public class Reservation {
     @Id
