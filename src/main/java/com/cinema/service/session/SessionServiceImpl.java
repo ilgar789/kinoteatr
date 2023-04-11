@@ -1,8 +1,8 @@
 package com.cinema.service.session;
 
 
-import com.cinema.exceptions.exception.CinemaException;
-import com.cinema.exceptions.exception.SessionException;
+import com.cinema.exceptions.cinema.CinemaException;
+import com.cinema.exceptions.session.SessionException;
 import com.cinema.model.Session;
 import com.cinema.repository.CinemaRepository;
 import com.cinema.repository.SessionRepository;

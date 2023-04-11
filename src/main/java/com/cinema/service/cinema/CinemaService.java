@@ -3,10 +3,9 @@ package com.cinema.service.cinema;
 
 import com.cinema.dto.CinemaRequestDTO;
 import com.cinema.model.Cinema;
-import com.cinema.exceptions.exception.CinemaException;
+import com.cinema.exceptions.cinema.CinemaException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CinemaService {
 

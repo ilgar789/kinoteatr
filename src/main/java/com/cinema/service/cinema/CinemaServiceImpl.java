@@ -3,7 +3,7 @@ package com.cinema.service.cinema;
 
 import com.cinema.dto.CinemaRequestDTO;
 import com.cinema.model.Cinema;
-import com.cinema.exceptions.exception.CinemaException;
+import com.cinema.exceptions.cinema.CinemaException;
 import com.cinema.repository.CinemaRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

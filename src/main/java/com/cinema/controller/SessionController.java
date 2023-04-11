@@ -1,6 +1,6 @@
 package com.cinema.controller;
 
-import com.cinema.exceptions.exception.SessionException;
+import com.cinema.exceptions.session.SessionException;
 import com.cinema.model.Session;
 import com.cinema.service.session.SessionService;
 import lombok.RequiredArgsConstructor;

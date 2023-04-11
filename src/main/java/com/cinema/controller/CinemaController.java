@@ -3,7 +3,7 @@ package com.cinema.controller;
 
 import com.cinema.dto.CinemaRequestDTO;
 import com.cinema.model.Cinema;
-import com.cinema.exceptions.exception.CinemaException;
+import com.cinema.exceptions.cinema.CinemaException;
 import com.cinema.service.cinema.CinemaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

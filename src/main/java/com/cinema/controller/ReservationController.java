@@ -3,7 +3,7 @@ package com.cinema.controller;
 
 import com.cinema.dto.ReservationRequestDTO;
 import com.cinema.model.Reservation;
-import com.cinema.exceptions.exception.ReservationException;
+import com.cinema.exceptions.resrvation.ReservationException;
 import com.cinema.service.reservation.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;

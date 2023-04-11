@@ -3,16 +3,12 @@ package com.cinema.service.reservation;
 
 import com.cinema.dto.ReservationRequestDTO;
 import com.cinema.model.Reservation;
-import com.cinema.model.Session;
-import com.cinema.exceptions.exception.ReservationException;
-import com.cinema.model.User;
+import com.cinema.exceptions.resrvation.ReservationException;
 import com.cinema.repository.ReservationRepository;
 import com.cinema.repository.SessionRepository;
 import com.cinema.repository.UserRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

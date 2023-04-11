@@ -1,11 +1,10 @@
 package com.cinema.exceptions.exceptionHandler;
 
-import com.cinema.exceptions.exception.CinemaException;
-import com.cinema.exceptions.exception.ReservationException;
-import com.cinema.exceptions.exception.SessionException;
+import com.cinema.exceptions.session.SessionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,25 +22,6 @@ public class ExceptionHandler {
 
         return errorMap;
     }
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @org.springframework.web.bind.annotation.ExceptionHandler(CinemaException.class)
-    public Map<String, String> handleCinemaException(CinemaException ex) {
-        Map<String, String> errorMap = new HashMap<>();
-        errorMap.put("errorMessage", ex.getMessage());
-        return errorMap;
-    }
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @org.springframework.web.bind.annotation.ExceptionHandler(ReservationException.class)
-    public Map<String, String> handleReservationException(ReservationException ex) {
-        Map<String, String> errorMap = new HashMap<>();
-        errorMap.put("errorMessage", ex.getMessage());
-        return errorMap;
-    }
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @org.springframework.web.bind.annotation.ExceptionHandler(SessionException.class)
-    public Map<String, String> handleSessionException(SessionException ex) {
-        Map<String, String> errorMap = new HashMap<>();
-        errorMap.put("errorMessage", ex.getMessage());
-        return errorMap;
-    }
+
+
 }
